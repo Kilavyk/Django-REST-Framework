@@ -13,6 +13,7 @@ class Course(models.Model):
         verbose_name_plural = 'Курсы'
 
 class Lesson(models.Model):
+    objects = None
     title = models.CharField(max_length=150, verbose_name='Название')
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
     preview = models.ImageField(upload_to='lessons/previews/', blank=True, null=True, verbose_name='Превью',)
