@@ -1,4 +1,5 @@
 from rest_framework import generics, viewsets
+
 from materials.models import Course, Lesson
 from materials.serializers import CourseSerializer, LessonSerializer
 
@@ -33,6 +34,6 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
     queryset = Lesson.objects.all()
 
 
-#Удаление урока (DELETE)
+# Удаление урока (DELETE)
 class LessonDestroyAPIView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
