@@ -24,7 +24,7 @@ class User(AbstractUser):
         upload_to="users/avatars/",
         blank=True,
         null=True,
-        erbose_name="Аватар"
+        verbose_name="Аватар"
     )
 
     USERNAME_FIELD = "email"
