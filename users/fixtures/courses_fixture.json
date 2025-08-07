@@ -1,0 +1,20 @@
+[
+    {
+        "model": "materials.course",
+        "pk": 1,
+        "fields": {
+            "title": "Python для начинающих",
+            "preview": "courses/previews/python_basic.jpg",
+            "description": "Основы программирования на Python."
+        }
+    },
+    {
+        "model": "materials.course",
+        "pk": 2,
+        "fields": {
+            "title": "Django PRO",
+            "preview": "courses/previews/django_advanced.jpg",
+            "description": "Продвинутый курс по веб-разработке."
+        }
+    }
+]

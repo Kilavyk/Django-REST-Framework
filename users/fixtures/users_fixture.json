@@ -1,0 +1,36 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "email": "student@example.com",
+            "password": "pbkdf2_sha256$600000$XcXb6...",
+            "phone": "+79110001122",
+            "city": "Москва",
+            "avatar": "users/avatars/student.jpg"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 2,
+        "fields": {
+            "email": "teacher@example.com",
+            "password": "pbkdf2_sha256$600000$YyYd7...",
+            "phone": "+79120002233",
+            "city": "Санкт-Петербург",
+            "avatar": "users/avatars/teacher.jpg"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 3,
+        "fields": {
+            "email": "admin@example.com",
+            "password": "pbkdf2_sha256$600000$ZzZe8...",
+            "phone": "+79130003344",
+            "city": "Казань",
+            "is_staff": true,
+            "is_superuser": true
+        }
+    }
+]
