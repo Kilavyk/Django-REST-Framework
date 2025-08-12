@@ -5,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, BasePermission
 
 from users.models import Payment, User
+from users.permissions import IsOwnerOrStaff
 from users.serializers import PaymentSerializer, UserSerializers
 
 
@@ -15,11 +16,6 @@ class PaymentListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['paid_course', 'paid_lesson', 'payment_method']
     ordering_fields = ['payment_date']
-
-
-class IsOwnerOrStaff(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj == request.user or request.user.is_staff
 
 
 class UserCreateAPIView(CreateAPIView):
