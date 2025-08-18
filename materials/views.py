@@ -8,11 +8,14 @@ from materials.models import Course, Lesson, Subscription
 from materials.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModerator, IsOwner
 
+from .paginators import (CoursePagination, LessonPagination)
+
 
 # Автоматически предоставляет все CRUD
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
+    pagination_class = CoursePagination  # Добавляем пагинатор
 
     def get_permissions(self):
         if self.action == 'create':
@@ -46,6 +49,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
 class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = LessonPagination  # Добавляем пагинатор
 
     def get_queryset(self):
         if not self.request.user.is_staff and not IsModerator().has_permission(self.request, self):
