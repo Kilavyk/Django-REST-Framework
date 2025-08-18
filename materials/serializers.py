@@ -1,12 +1,23 @@
 from rest_framework import serializers
 
 from materials.models import Course, Lesson
+from materials.validators import validate_youtube_url
 
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = "__all__"
+        extra_kwargs = {
+            'video_link': {'validators': [validate_youtube_url]}
+        }
+
+    def validate_video_link(self, value):
+        """Дополнительная валидация для video_link"""
+        if value is None:
+            return value
+        validate_youtube_url(value)
+        return value
 
 
 class CourseSerializer(serializers.ModelSerializer):
