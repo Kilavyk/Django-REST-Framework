@@ -63,6 +63,14 @@ class Payment(models.Model):
         ('transfer', 'Перевод на счет'),
     ]
 
+    # Новые поля для Stripe
+    stripe_product_id = models.CharField(max_length=100, blank=True, null=True, verbose_name="ID продукта в Stripe")
+    stripe_price_id = models.CharField(max_length=100, blank=True, null=True, verbose_name="ID цены в Stripe")
+    stripe_session_id = models.CharField(max_length=100, blank=True, null=True, verbose_name="ID сессии в Stripe")
+    stripe_payment_url = models.URLField(max_length=500, blank=True, null=True, verbose_name="Ссылка для оплаты")
+    stripe_payment_status = models.CharField(max_length=20, default='pending', verbose_name="Статус оплаты в Stripe")
+
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
