@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from materials.models import Course, Lesson, Subscription
 from materials.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModerator, IsOwner
+from materials.tasks import send_course_update_notification
 
 from .paginators import (CoursePagination, LessonPagination)
 
@@ -61,6 +62,15 @@ class CourseViewSet(viewsets.ModelViewSet):
         if not self.request.user.is_staff and not IsModerator().has_permission(self.request, self):
             return self.queryset.filter(owner=self.request.user)
         return self.queryset
+
+    def update(self, request, *args, **kwargs):
+        """Переопределяем update для отправки уведомлений"""
+        response = super().update(request, *args, **kwargs)
+
+        # Отправляем асинхронное уведомление об обновлении курса
+        course_id = self.get_object().id
+        send_course_update_notification.delay(course_id)
+        return response
 
 
 class LessonCreateAPIView(generics.CreateAPIView):

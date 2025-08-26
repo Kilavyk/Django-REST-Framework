@@ -6,6 +6,8 @@ class Course(models.Model):
     preview = models.ImageField(upload_to="courses/previews/", blank=True, null=True, verbose_name="Превью")
     description = models.TextField(blank=True, null=True, verbose_name="Описание")
     owner = models.ForeignKey('users.User', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Владелец")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
     def __str__(self):
         return self.title
