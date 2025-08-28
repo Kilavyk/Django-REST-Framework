@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from celery.schedules import crontab
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
@@ -163,3 +164,22 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
+
+# Расписание периодических задач
+CELERY_BEAT_SCHEDULE = {
+    # Проверка неактивных пользователей - каждый день в 2:00 ночи
+    'deactivate-inactive-users-daily': {
+        'task': 'users.tasks.deactivate_inactive_users',
+        'schedule': crontab(hour=2, minute=0),
+        'args': (),
+        'kwargs': {},
+    },
+
+    # Дополнительная проверка - каждый понедельник в 3:00 утра
+    'weekly-user-activity-check': {
+        'task': 'users.tasks.check_user_activity',
+        'schedule': crontab(day_of_week=1, hour=3, minute=0),
+        'args': (),
+        'kwargs': {},
+    },
+}
