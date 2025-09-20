@@ -1,0 +1,42 @@
+[
+    {
+        "model": "materials.lesson",
+        "pk": 1,
+        "fields": {
+            "title": "Установка Python",
+            "course": 1,
+            "preview": "lessons/previews/python_install.jpg",
+            "video_link": "https://youtube.com/watch?v=python1"
+        }
+    },
+    {
+        "model": "materials.lesson",
+        "pk": 2,
+        "fields": {
+            "title": "Основы синтаксиса",
+            "course": 1,
+            "preview": "lessons/previews/python_syntax.jpg",
+            "video_link": "https://youtube.com/watch?v=python2"
+        }
+    },
+    {
+        "model": "materials.lesson",
+        "pk": 3,
+        "fields": {
+            "title": "ORM в Django",
+            "course": 2,
+            "preview": "lessons/previews/django_orm.jpg",
+            "video_link": "https://youtube.com/watch?v=django1"
+        }
+    },
+    {
+        "model": "materials.lesson",
+        "pk": 4,
+        "fields": {
+            "title": "Django REST Framework",
+            "course": 2,
+            "preview": "lessons/previews/django_rest.jpg",
+            "video_link": "https://youtube.com/watch?v=django2"
+        }
+    }
+]
