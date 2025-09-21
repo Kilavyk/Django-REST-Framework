@@ -24,6 +24,7 @@ jobs:
 
 
   test:
+    needs: lint
     runs-on: ubuntu-latest
 
     steps:
@@ -89,3 +90,6 @@ jobs:
           docker rm ${{ github.repository }} || true
           docker run -d --name ${{ github.repository }} -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.repository }}:${{ github.sha }}
         EOF
+
+
+
