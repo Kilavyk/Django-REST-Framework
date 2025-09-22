@@ -1,3 +1,4 @@
+import sys
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -84,6 +85,12 @@ DATABASES = {
         },
     }
 }
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'test_db.sqlite3',
+    }
 
 
 # Password validation
