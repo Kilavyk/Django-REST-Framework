@@ -26,7 +26,8 @@ jobs:
   test:
     needs: lint
     runs-on: ubuntu-latest
-
+    env:
+      SECRET_KEY: 'your-super-secret-key-for-tests-here'
     steps:
     - name: Check out code
       uses: actions/checkout@v3
