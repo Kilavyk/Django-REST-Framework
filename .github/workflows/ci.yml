@@ -65,10 +65,10 @@ jobs:
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }} .
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name | lower }}:${{ github.sha }} .
 
       - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name | lower }}:${{ github.sha }}
 
   deploy:
     needs: build
@@ -83,10 +83,10 @@ jobs:
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}
-          docker stop ${{ github.event.repository.name }} || true
-          docker rm ${{ github.event.repository.name }} || true
-          docker run -d --name ${{ github.event.repository.name }} -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name | lower }}:${{ github.sha }}
+          docker stop ${{ github.event.repository.name | lower }} || true
+          docker rm ${{ github.event.repository.name | lower }} || true
+          docker run -d --name ${{ github.event.repository.name | lower }} -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name | lower }}:${{ github.sha }}
         EOF
 
 
