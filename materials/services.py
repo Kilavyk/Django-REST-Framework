@@ -38,12 +38,14 @@ def create_stripe_checkout_session(price_id, success_url, cancel_url):
     """Создание сессии для оплаты в Stripe"""
     try:
         session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
-                'price': price_id,
-                'quantity': 1,
-            }],
-            mode='payment',
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price": price_id,
+                    "quantity": 1,
+                }
+            ],
+            mode="payment",
             success_url=success_url,
             cancel_url=cancel_url,
         )
