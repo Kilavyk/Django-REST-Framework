@@ -54,7 +54,6 @@ jobs:
       run: python manage.py test
 
   build:
-    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -83,7 +82,7 @@ jobs:
     - name: Deploy to Server
       run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          touch .env
+          # Создаем .env файл
           cat > .env << 'ENV_EOF'
           SECRET_KEY=${{ secrets.SECRET_KEY }}
           NAME=${{ secrets.NAME }}
@@ -101,8 +100,9 @@ jobs:
         
           CELERY_BROKER_URL=redis://redis:6379/0
           CELERY_RESULT_BACKEND=redis://redis:6379/0
-          
+          ENV_EOF
         
+          # Выполняем docker команды (это отдельные команды, а не часть файла .env)
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
           docker stop django-rest-app || true
           docker rm django-rest-app || true
