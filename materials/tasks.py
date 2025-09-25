@@ -19,18 +19,20 @@ def send_course_update_notification(course_id):
         if not subscriptions.exists():
             return f"Нет подписчиков на курс {course.title}"
 
-        subject = f'Обновление курса: {course.title}'
+        subject = f"Обновление курса: {course.title}"
 
         for subscription in subscriptions:
             user = subscription.user
             context = {
-                'course_title': course.title,
-                'user_name': user.first_name or user.email,
-                'course_description': course.description,
+                "course_title": course.title,
+                "user_name": user.first_name or user.email,
+                "course_description": course.description,
             }
 
             # HTML версия письма
-            html_message = render_to_string('materials/course_update_email.html', context)
+            html_message = render_to_string(
+                "materials/course_update_email.html", context
+            )
             plain_message = strip_tags(html_message)
 
             send_mail(
@@ -42,7 +44,9 @@ def send_course_update_notification(course_id):
                 fail_silently=False,
             )
 
-        return f"Отправленных уведомлений {subscriptions.count()} для курса {course.title}"
+        return (
+            f"Отправленных уведомлений {subscriptions.count()} для курса {course.title}"
+        )
 
     except Course.DoesNotExist:
         return f"Курс с идентификатором {course_id} не существует"

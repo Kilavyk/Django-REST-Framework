@@ -8,5 +8,5 @@ def validate_youtube_url(value):
         return  # Пропускаем None значения
 
     parsed_url = urlparse(value)
-    if parsed_url.netloc not in ('youtube.com', 'www.youtube.com'):
-        raise ValidationError('Разрешены только ссылки на youtube.com')
+    if parsed_url.netloc not in ("youtube.com", "www.youtube.com"):
+        raise ValidationError("Разрешены только ссылки на youtube.com")

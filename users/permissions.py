@@ -8,7 +8,7 @@ class IsOwnerOrStaff(BasePermission):
 
 class IsModerator(BasePermission):
     def has_permission(self, request, view):
-        return request.user.groups.filter(name='moderators').exists()
+        return request.user.groups.filter(name="moderators").exists()
 
 
 class IsOwner(BasePermission):
