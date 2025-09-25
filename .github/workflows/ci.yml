@@ -107,7 +107,7 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
           docker stop django-rest-app || true
           docker rm django-rest-app || true
-          docker run -d --name django-rest-app -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
+          docker run -d --name django-rest-app -p 80:8000 --env-file .env ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
           EOF
 
 
