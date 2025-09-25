@@ -82,12 +82,32 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          touch .env
+          cat > .env << 'ENV_EOF'
+          SECRET_KEY=${{ secrets.SECRET_KEY }}
+          NAME=${{ secrets.NAME }}
+          USER=${{ secrets.USER }}
+          PASSWORD=${{ secrets.PASSWORD }}
+          HOST=${{ secrets.HOST }}
+          PORT=${{ secrets.PORT }}
+                           
+          
+          DEBUG=True
+          
+          # Stripe
+          STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_API_VERSION=${{ secrets.STRIPE_API_VERSION }}
+        
+          CELERY_BROKER_URL=redis://redis:6379/0
+          CELERY_RESULT_BACKEND=redis://redis:6379/0
+          
+        
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
           docker stop django-rest-app || true
           docker rm django-rest-app || true
           docker run -d --name django-rest-app -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
-        EOF
+          EOF
 
 
 
