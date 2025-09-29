@@ -17,8 +17,7 @@ def deactivate_inactive_users():
 
         # Находим пользователей, которые не заходили более месяца и еще активны
         inactive_users = User.objects.filter(
-            last_login__lt=thirty_days_ago,
-            is_active=True
+            last_login__lt=thirty_days_ago, is_active=True
         )
 
         # Деактивируем пользователей
