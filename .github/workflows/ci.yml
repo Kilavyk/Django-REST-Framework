@@ -108,6 +108,12 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
           docker stop django-rest-app || true
           docker rm django-rest-app || true
+          docker run -d --name postgres\
+          -p 5433:5432 \
+          -e POSTGRES_DB=django_rest \
+          -e POSTGRES_USER=postgres \
+          -e POSTGRES_PASSWORD=postgres \
+          postgres:15.2
           docker run -d --name django-rest-app -p 80:8000 --env-file .env ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
           EOF
 
