@@ -71,7 +71,7 @@ jobs:
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/django-rest-app:${{ github.sha }}
 
   deploy:
-
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
