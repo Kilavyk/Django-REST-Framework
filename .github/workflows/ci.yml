@@ -89,7 +89,7 @@ jobs:
           NAME=${{ secrets.NAME }}
           USER=${{ secrets.USER }}
           PASSWORD=${{ secrets.PASSWORD }}
-          HOST=localhost
+          HOST=${{ secrets.HOST }}
           PORT=${{ secrets.PORT }}
                            
           
